@@ -12,14 +12,18 @@ Even though this repository is named `Code Review For Analysts`, your job title 
 
 ## Scope
 
-My team works with clinical trials data and programs in R using tidyverse syntax. These specifications written here are tailored to that context; I am happy to consider making it more generalizable in the future.
+My team works with clinical trials data and programs in R using tidyverse syntax. The specifications written here are tailored to that context; I am happy to consider making it more generalizable in the future.
 
-# Aims
+## Aims
 
 The aims of this document are to:
-(1) Provide my team with a clear set of expectations and guidelines to follow before they submit code for review.
-(2) Empower my team to learn how to be good reviewers of code.
 
+1. Provide my team with a clear set of expectations and guidelines to follow before they submit code for review.
+2. Empower my team to learn how to be good reviewers of code.
+
+## Code review guidelines
+
+### Is a review required? How in depth should it be?
 
 
 
