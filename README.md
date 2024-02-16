@@ -14,18 +14,30 @@ Even though this repository is named `Code Review For Analysts`, your job title 
 
 My team works with clinical trials data and programs in R using tidyverse syntax. The specifications written here are tailored to that context; I am happy to consider making it more generalizable in the future.
 
-My team also works in a specific project template. For now, some of those details need to go in here as well.
+My team also works in a specific project template. For now, some of those details may go in here as well.
 
 ## Aims
 
 The aims of this document are to:
 
-1. Provide my team with a clear set of expectations and guidelines to follow before they submit code for review.
-2. Empower my team to learn how to be good reviewers of code.
+1. Provide a team with a clear set of expectations and guidelines to follow before they submit code for review.
+2. Empower a team to learn how to review code.
 
 ## Code review guidelines
 
-### Is a review required? How in depth should it be?
+### Is a review required? 
+
+Code review is **not required** if:
+* you are an experienced employee and you are re-executing existing work with minimal changes (i.e., updated data).
+* you are an experienced employee and you are creating new work, but it has been agreed that there will be an alternative review process such as the clinical operations or data management team QCing the results.
+
+Code review is **required** if you are a newer employee (<4 months) and for all other circumstances.
+
+### Type of review
+
+### How in depth should it be?
+
+### How fast do you need it
 
 ### Am I ready to request a review?
 
