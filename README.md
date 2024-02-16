@@ -23,6 +23,13 @@ The aims of this document are to:
 1. Provide a team with a clear set of expectations and guidelines to follow before they submit code for review.
 2. Empower a team to learn how to review code.
 
+
+## Before any code is written
+
+* Make sure you (the person submitting the code) have a clear understanding of the request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
+* Check the associated project repository for existing code you can build upon.
+* Check the associated project repository for any open pull requests. If there are open PRs, assess if they contain either related work or work that could cause a downstream merge conflict. If so, discuss a plan on how to handle.
+
 ## Code review guidelines
 
 ### Is a review required? 
@@ -33,17 +40,17 @@ Code review is **not required** if:
 
 Code review is **required** if you are a newer employee (<4 months) and for all other circumstances.
 
-### Type of review
-
-### How in depth should it be?
-
-### How fast do you need it
-
 ### Am I ready to request a review?
+
+First, confirm that your code follows the guidelines below.
 
 Depending on the scope of the code in progress, it may be beneficial to have some initial conversation and feedback prior to officially requesting a review. This is especially important for newer employees or newer bodies of work. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process.
 
-### Who should the reviewer be?
+### Type of review request
+
+* **Standard**
+* **Expedited:** This is a review for work that requires a quick turnaround. The reviewer may be lenient on review specifications below; however, note that shortcuts taken in specifications will likely lengthen the review process.
+
 
 ### Code style
 
