@@ -2,7 +2,7 @@
 
 ## Contributing
 
-These are my rough thoughts. I expect this document to change over time. I also greatly value community feedback on my thoughts. Providing feedback via issues, pull requests, or discussions is welcomed and encouraged.
+These are my rough thoughts. I expect this document to change over time. I also greatly value community feedback on these thoughts. This includes both content and organization. Providing feedback via issues, pull requests, or discussions is welcomed and encouraged.
 
 ## About
 
@@ -30,7 +30,7 @@ The aims of this document are to:
 * Check the associated project repository for existing code you can build upon.
 * Check the associated project repository for any open pull requests. If there are open PRs, assess if they contain either related work or work that could cause a downstream merge conflict. If so, discuss a plan on how to handle.
 
-## Code review guidelines
+## Getting started
 
 ### Is a review required? 
 
@@ -46,11 +46,22 @@ First, confirm that your code follows the guidelines below.
 
 Depending on the scope of the code in progress, it may be beneficial to have some initial conversation and feedback prior to officially requesting a review. This is especially important for newer employees or newer bodies of work. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process.
 
+## Code review guidelines
+
+### Note
+
+We started writing code before we had a team with code review. We have a lot of older code that does not conform to our new standards. This means:
+
+1. If you use any exisiting code as a starting point note that the existing code might not have gone through this code review process. If this a new body of work, you are still responsible for updating it according to these guidelines.
+2. The point of this is **not** to update our entire code base according to these standards. The point is to raise the bar for new work, or for previous high impact high friction work. 
+
 ### Type of review request
 
 * **Standard**
+* **Scoped:** This might be appropriate for pre-existing, legacy code that requires some updates. This body of code may not satisfy the guidelines below; however, the gains in re-factoring the code is low impact and therefore not worthwhile.
 * **Expedited:** This is a review for work that requires a quick turnaround. The reviewer may be lenient on review specifications below; however, note that shortcuts taken in specifications will likely lengthen the review process.
-
+  
+### Docmentation
 
 ### Code style
 
@@ -61,6 +72,10 @@ Depending on the scope of the code in progress, it may be beneficial to have som
 #### Case-when logic
 
 #### Checking derived variables
+
+#### Commented code
+
+Don't do it. Just don't keep commented out code in your submission. If you are concerned about losing work, use of regular GitHub releases to mark merged work for specific deliverables or data changes would allow us to quickly return to this point in time.
 
 
 
