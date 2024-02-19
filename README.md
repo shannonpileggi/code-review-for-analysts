@@ -102,7 +102,7 @@ df_subjects <- df_1 |>
      ...
   )
 ```
-* **Use `filter` statements carefully.** Sometimes they are appropriate, for example, to remove
+* **Use `filter` statements sparingly/carefully.** Sometimes they are appropriate, for example, to remove
 screen fail subjects. More often than not, you would be better served to create new derived
 variables indicating subjects of interest as we are often interested in not only observations that
 meet a certain criteria but also the full context of how many subjects did not meet that criteria.
@@ -172,7 +172,24 @@ TODO: insert screenshots of resulting data frame if this example gains traction.
 
 In general, the best way to QC derived variables is to tabulate the newly derived variable against the original variable, as in
 
-`data |> count(variable_new, variable_old)`
+`data |> count(variable_new, variable_old)`.
+
+Often, these span more than the default print method. To see all results,
+
+```
+# does not work well in Rmarkdown/quarto, can be disruptive when submitting entire scripts
+# but also has easy sorting and filtering features to examine results
+data |> count(variable_new, variable_old) |> View()
+
+# prints all results to console, no easy sorting/filtering features
+data |> count(variable_new, variable_old) |> print(n = Inf)
+```
+
+#### NAs
+
+Missing values are always of special interest. Verify the presence, if any, of missing values
+in original variables and confirm that those observations are coded correctly in 
+newly derived variables.
 
 #### Example
 
@@ -182,7 +199,7 @@ In `df_1` above, results can be QCd but it would be hard to diagnose where code 
 df_1 |> count(dt_excel, dt_clean)
 ```
 
-In this case, the 1900 condition failed to result in a missig value.
+In this case, the 1900 condition failed to result in a missing value.
 
 In `df_2`, each individual variable derived can be QCd to pinpoint where logic fails.
 
