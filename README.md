@@ -8,7 +8,8 @@ These are my rough thoughts. I expect this document to change over time. I also 
 
 There is a lot written about the benefits of code review. There is also a lot written about code review processes for software engineers or people who work with code in production and can take advantage of CI/CD pipelines or testing environments. I think there is less written about code review for analysts. If you know of any existing resources along these lines, please share.
 
-Even though this repository is named `Code Review For Analysts`, your job title does not need to be `analyst` to benefit from this document; this document is for teams who write code for the purposes of data analysis and employ code review. Other job titles that may find this document useful include data scientist, ...
+Even though this repository is named `Code Review For Analysts`, your job title does not need to be `analyst` to benefit from this document; this document is for teams who write code for the purposes of data analysis and employ code review. This document does not apply to 
+code review of R packages, as that follows as a separate process. Other job titles that may find this document useful include data scientist, ...
 
 ## Scope
 
