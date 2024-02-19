@@ -66,7 +66,8 @@ We started writing code before we had a team with code review. We have a lot of 
 High level documentation should be added in the top of the script / quarto document regarding the aims of this body of work.
 This documentation should also include links to relevant internal documents when applicable (i.e. protocols, data request forms, etc.).
 If conversations occurred to clarify or confirm any portion of that request, then that should be added to the high level description as well 
-(e.g., "Confirmed with Susan that the dates are for the 2023 calendar year.").
+(e.g., "Confirmed with Susan that the dates are for the 2023 calendar year."). If the scope of the request evolves, then the documentation
+should be aligned with the updated scope.
 
 Comments are also expected throughout the script.
 * New data sets should have a brief comment about expected form and content
@@ -79,9 +80,7 @@ Comments are also expected throughout the script.
 
 ### Code style
 
-### Code smells
-
-#### Data sets and steps
+### Data sets and steps
 
 Ideally we would like to create the fewest possible relevant data sets and also retain data sets
 that allow one to fully check new variable derivations.
@@ -102,14 +101,21 @@ df_subjects <- df_1 |>
      ...
   )
 ```
-* b
+* **Use `filter` statements carefully.** Sometimes they are appropriate, for example, to remove
+screen fail subjects. More often than not, you would be better served to create new derived
+variables flagging subjects of interest as we are often interested in not only observations that
+meet a certain criteri but aslo the full context of how many subjects did not meet that criteria.
+* When grouping or reducing data, you will likely need to retain one data step to QC derivations and
+a separate data step for reducing / refining the observations of interest.
 
-#### Mutating
+### Mutating
 Case-when logic
 
-#### Checking derived variables
+NAs
 
-#### Commented code
+### Checking derived variables
+
+### Commented code
 
 Commented out code in your submission is rarely valuable and best omitted. It most often reflects older work that is no longer relevant. If you
 do really want to leave in commented out code, be sure to add a comment describing why it is important to retain. 
