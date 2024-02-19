@@ -104,8 +104,8 @@ df_subjects <- df_1 |>
 ```
 * **Use `filter` statements carefully.** Sometimes they are appropriate, for example, to remove
 screen fail subjects. More often than not, you would be better served to create new derived
-variables flagging subjects of interest as we are often interested in not only observations that
-meet a certain criteri but aslo the full context of how many subjects did not meet that criteria.
+variables indicating subjects of interest as we are often interested in not only observations that
+meet a certain criteria but also the full context of how many subjects did not meet that criteria.
 * When grouping or reducing data, you will likely need to retain one data step to QC derivations and
 a separate data step for reducing / refining the observations of interest.
 
