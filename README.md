@@ -87,7 +87,7 @@ Ideally we would like to create the fewest possible relevant data sets and also 
 that allow one to fully check new variable derivations.
 
 * Data sets should be created in terms of unit of observation (1 row per subject, 1 row per imaging scan, etc.) and scope
-(demographics, end points, etc).
+(demographics, endpoints, etc).
 * If the data sets have the same unit of observation (i.e., 1 row per subject) consider if they should be merged together
 or if they should be separate.
 * Operations/muatations on data sets should be done in a single data step when possible (i.e., don't create age
