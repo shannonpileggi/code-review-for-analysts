@@ -109,12 +109,91 @@ meet a certain criteri but aslo the full context of how many subjects did not me
 * When grouping or reducing data, you will likely need to retain one data step to QC derivations and
 a separate data step for reducing / refining the observations of interest.
 
-### Mutating
-Case-when logic
+#### New variable creation  
 
-NAs
+In general, it is best practice to create new variables with new names and not overwrite existing variables. 
+This is because in order to QC the new variable creation, you need to cross check the previous values against
+the new values. When you overwrite variables, you lose the ability to QC them.
+
+The only exception I make for this is when converting a character variable to a factor when all original
+character values are retained.
+
+### Case-when logic
+
+Do not shoehorn complex logic into a `case_when` statement - this makes it very hard to QC results.
+Instead, derive simpler variables that can be easily QC'd and then built upon for more complex logic.
+
+For example, consider date variables imported from excel that need to be converted to proper date formats
+with dates marked as year 1900 set to missing.
+
+```
+df_raw <- tribble(
+  ~id, ~dt_excel,
+  1,  42467,
+  2,  NA,
+  3,  2   
+)
+```
+In this first data step, computational statements are employed on both the left hand side
+of the evaluation and the right and side of the assigment.
+
+```
+df_1 <- df_raw |> 
+  mutate(
+    dt_clean = case_when(
+      year(dt_excel) <= 1900 ~ NA_Date_,
+      .default = janitor::convert_to_date(dt_excel)
+    )
+  )
+```
+If results are unexpected here, it is hard to determine if it is because 
+1. `year(dt_excel)` failed,
+2. `year(dt_excel) <= 1900` failed, or
+3. `janitor::convert_to_date(dt_excel)` failed
+
+Instead of embedding computational assignments inside of `case_when` statement, create simpler
+variables that build up to this logic.
+
+```
+df_2 <- df_raw |> 
+  mutate(
+    dt_proper = janitor::convert_to_date(dt_excel),
+    dt_year = year(dt_proper),
+    dt_year_valid = dt_year > 1900,
+    dt_clean = case_when(
+      dt_year_valid ~ dt_proper,
+      .default = NA_Date_
+    )
+  )
+```
+TODO: insert screenshots of resulting data frame if this example gains traction.
 
 ### Checking derived variables
+
+In general, the best way to QC derived variables is to tabulate the newly derived variable against the original variable, as in
+
+`data |> count(variable_new, variable_old)`
+
+#### Example
+
+In `df_1` above, results can be QCd but it would be hard to diagnose where code went wrong if results were unexpected.
+
+```
+df_1 |> count(dt_excel, dt_clean)
+```
+
+In this case, the 1900 condition failed to result in a missig value.
+
+In `df_2`, each individual variable derived can be QCd to pinpoint where logic fails.
+
+```
+df_2 |> count(dt_proper, dt_excel)
+df_2 |> count(dt_year, dt_proper)
+df_2 |> count(dt_year_valid, dt_year)
+df_2 |> count(dt_clean, dt_year_valid, dt_proper)
+```
+
+TODO: insert screenshots of results if this example gains traction.
 
 ### Commented code
 
@@ -124,6 +203,10 @@ do really want to leave in commented out code, be sure to add a comment describi
 If you are removing commented out code and you are concerned about losing work, use of regular GitHub releases to mark merged work
 for specific deliverables or data changes is recommended to allow you to quickly return to this point in time.
 
+### Warnings
+
+Code should execute without warnings. If you have encountered a warning you are not sure how to resolve,
+ask about it in a pre- code review discussion.
 
 
 
