@@ -63,6 +63,20 @@ We started writing code before we had a team with code review. We have a lot of 
   
 ### Docmentation
 
+High level documentation should be added in the top of the script / quarto document regarding the aims of this body of work.
+This documentation should also include links to relevant internal documents when applicable (i.e. protocols, data request forms, etc.).
+If conversations occurred to clarify or confirm any portion of that request, then that should be added to the high level description as well 
+(e.g., "Confirmed with Susan that the dates are for the 2023 calendar year.").
+
+Comments are also expected throughout the script.
+* New data sets should have a brief comment about expected form and content
+(i.e., 1 row per subject containing demographic information).
+* Joins should have comments explaining type of join used.
+* New variables should have comments about what it is and notes about nuances in derivation.
+* Grouping operations should have comments about what level the grouping is at and why.
+* Probably more types of comments expected.
+
+
 ### Code style
 
 ### Code smells
@@ -75,7 +89,11 @@ We started writing code before we had a team with code review. We have a lot of 
 
 #### Commented code
 
-Don't do it. Just don't keep commented out code in your submission. If you are concerned about losing work, use of regular GitHub releases to mark merged work for specific deliverables or data changes would allow us to quickly return to this point in time.
+Commented out code in your submission is rarely valuable and best omitted. It most often reflects older work that is no longer relevant. If you
+do really want to leave in commented out code, be sure to add a comment describing why it is important to retain. 
+
+If you are removing commented out code and you are concerned about losing work, use of regular GitHub releases to mark merged work
+for specific deliverables or data changes is recommended to allow you to quickly return to this point in time.
 
 
 
