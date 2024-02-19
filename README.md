@@ -61,7 +61,7 @@ We started writing code before we had a team with code review. We have a lot of 
 * **Scoped:** This might be appropriate for pre-existing, legacy code that requires some updates. This body of code may not satisfy the guidelines below; however, the gains in re-factoring the code is low impact and therefore not worthwhile.
 * **Expedited:** This is a review for work that requires a quick turnaround. The reviewer may be lenient on review specifications below; however, note that shortcuts taken in specifications will likely lengthen the review process.
   
-### Docmentation
+### Documentation
 
 High level documentation should be added in the top of the script / quarto document regarding the aims of this body of work.
 This documentation should also include links to relevant internal documents when applicable (i.e. protocols, data request forms, etc.).
