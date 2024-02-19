@@ -81,9 +81,31 @@ Comments are also expected throughout the script.
 
 ### Code smells
 
-#### Data steps
+#### Data sets and steps
 
-#### Case-when logic
+Ideally we would like to create the fewest possible relevant data sets and also retain data sets
+that allow one to fully check new variable derivations.
+
+* Data sets should be created in terms of unit of observation (1 row per subject, 1 row per imaging scan, etc.) and scope
+(demographics, end points, etc).
+* If the data sets have the same unit of observation (i.e., 1 row per subject) consider if they should be merged together
+or if they should be separate.
+* Operations/muatations on data sets should be done in a single data step when possible (i.e., don't create age
+category in one data step and then bmi category in a separate data step).
+* Data steps should generally be organized with all joins followed by all filters followed by mutating statements.
+```
+df_subjects <- df_1 |>
+  left_join(df_2, ...) |>
+  left_join(df_3, ...) |>
+  filter(...) |>
+  mutate(
+     ...
+  )
+```
+* b
+
+#### Mutating
+Case-when logic
 
 #### Checking derived variables
 
