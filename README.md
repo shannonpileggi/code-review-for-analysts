@@ -81,6 +81,8 @@ Comments are also expected throughout the script.
 
 ### Code style
 
+We follow the [tidyverse style guide](https://style.tidyverse.org/index.html).
+
 ### Data sets and steps
 
 Ideally we would like to create the fewest possible relevant data sets and also retain data sets
@@ -167,6 +169,8 @@ df_2 <- df_raw |>
   )
 ```
 TODO: insert screenshots of resulting data frame if this example gains traction.
+
+All new variables should have labels describing their meaning.
 
 ### Checking derived variables
 
