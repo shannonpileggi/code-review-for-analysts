@@ -45,6 +45,8 @@ Code review is **required** if you are a newer employee (<4 months) and for all 
 
 First, confirm that your code follows the guidelines below.
 
+Second, restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
+
 Depending on the scope of the code in progress, it may be beneficial to **have some initial conversation and feedback prior to officially requesting a review**. This is especially important for newer employees or newer bodies of work. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process.
 
 ## Code review guidelines
