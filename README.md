@@ -200,6 +200,7 @@ In general, the best way to QC derived variables is to tabulate the newly derive
 `data |> count(variable_new, variable_old)`.
 
 Often, these span more than the default print method. To see all results,
+you can use `View()` or `print(n = Inf)`.
 
 ```
 # does not work well in Rmarkdown/quarto, can be disruptive when submitting entire scripts
