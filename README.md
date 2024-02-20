@@ -104,6 +104,20 @@ df_subjects <- df_1 |>
      ...
   )
 ```
+
+This is as opposed to patterns like this, which is harder for a reviwer to follow.
+```
+# please don't do this
+df_subjects <- df_1 |>
+  filter(...) |>
+  left_join(df_2, ...) |>
+  mutate(...) |>
+  filter(...) |>
+  left_join(df_3, ...) |>
+  mutate(...)
+```
+```
+
 * **Use `filter` statements sparingly/carefully.** Sometimes they are appropriate, for example, to remove
 screen fail subjects. More often than not, you would be better served to create new derived
 variables indicating subjects of interest as we are often interested in not only observations that
