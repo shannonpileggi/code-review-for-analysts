@@ -111,7 +111,7 @@ meet a certain criteria but also the full context of how many subjects did not m
 * When grouping or reducing data, you will likely need to retain one data step to QC derivations and
 a separate data step for reducing / refining the observations of interest.
 
-#### New variable creation  
+### New variable creation  
 
 In general, it is best practice to create new variables with new names and not overwrite existing variables. 
 This is because in order to QC the new variable creation, you need to cross check the previous values against
@@ -119,6 +119,14 @@ the new values. When you overwrite variables, you lose the ability to QC them.
 
 The only exception I make for this is when converting a character variable to a factor when all original
 character values are retained.
+
+### Binary variables
+
+When creating binary variables, values should be coded as the logical `TRUE`/`FALSE` (not `yes`, `no`, etc.).
+It is also very important to consider if `NA` is a valid coded option. In general, the difference between
+coding an observation as `NA` vs `FALSE` is whether or not that observation should count in the denominator 
+when tabulating the variable (values of `NA` by default generally do not contribute towards denominator, values 
+of `FALSE` do).
 
 ### Case-when logic
 
