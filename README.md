@@ -211,6 +211,8 @@ data |> count(variable_new, variable_old) |> View()
 data |> count(variable_new, variable_old) |> print(n = Inf)
 ```
 
+**Each newly created variable must be QC'd.**
+
 #### NAs
 
 Missing values are always of special interest. Verify the presence, if any, of missing values
