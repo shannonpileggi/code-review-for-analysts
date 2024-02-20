@@ -116,7 +116,6 @@ df_subjects <- df_1 |>
   left_join(df_3, ...) |>
   mutate(...)
 ```
-```
 
 * **Use `filter` statements sparingly/carefully.** Sometimes they are appropriate, for example, to remove
 screen fail subjects. More often than not, you would be better served to create new derived
