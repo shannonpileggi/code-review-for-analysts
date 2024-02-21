@@ -11,6 +11,11 @@ There is a lot written about the benefits of code review. There is also a lot wr
 Even though this repository is named `Code Review For Analysts`, your job title does not need to be `analyst` to benefit from this document; this document is for teams who write code for the purposes of data analysis and employ code review. This document does not apply to 
 code review of R packages, as that follows as a separate process. Other job titles that may find this document useful include data scientist, ...
 
+## Related Resources
+
+* _Code Review in the Lab, or … How do you review code that accompanies a research project or paper?_, ROpenSci 2018, [recording](https://ropensci.org/commcalls/2018-10-16/), [blog post](https://ropensci.org/blog/2018/11/29/codereview/)
+* _Opionated Analysis Development_, Hillary Parker 2017, [paper](https://peerj.com/preprints/3210/), [2017 RStudio Conf Slides](https://www.slideshare.net/hilaryparker/opinionated-analysis-development)
+
 ## Scope
 
 My team works with clinical trials data and programs in R using tidyverse syntax. The specifications written here are tailored to that context; I am happy to consider making it more generalizable in the future.
