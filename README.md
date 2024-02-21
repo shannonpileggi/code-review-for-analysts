@@ -136,6 +136,8 @@ variables indicating subjects of interest as we are often interested in not only
 meet a certain criteria but also the full context of how many subjects did not meet that criteria.
 * When grouping or reducing data, you will likely need to retain one data step to QC derivations and
 a separate data step for reducing / refining the observations of interest.
+* Always confirm that there is 1 row per expected unit of observation (i.e., 1 row per subject, or 1 row per scan per date).
+  This can be done via `janitor::get_dupes()`.
 
 ### New variable creation  
 
