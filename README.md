@@ -55,9 +55,10 @@ and can be very beneficial to ensure that data context and nuances are appropria
 
 After that:
 
-First, confirm that your code follows the guidelines below.
-
-Second, restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
+1. Confirm that your code follows the guidelines below.
+2. Restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
+3. Update the `renv.lock`, if applicable.
+4. In the PR, inform the reviewer when the deliverable is due or a suggested timeline for review that it can be prioritized accordingly.
 
 ## Code review guidelines
 
