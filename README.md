@@ -15,6 +15,7 @@ code review of R packages, as that follows as a separate process. Other job titl
 
 * _Code Review in the Lab, or … How do you review code that accompanies a research project or paper?_, ROpenSci 2018, [recording](https://ropensci.org/commcalls/2018-10-16/), [blog post](https://ropensci.org/blog/2018/11/29/codereview/)
 * _Opionated Analysis Development_, Hillary Parker 2017, [paper](https://peerj.com/preprints/3210/), [2017 RStudio Conf Slides](https://www.slideshare.net/hilaryparker/opinionated-analysis-development)
+* _R Code Review Checklist_, Travis Gerke 2021, [repository](https://github.com/tgerke/r-code-review-checklist)
 
 ## Scope
 
