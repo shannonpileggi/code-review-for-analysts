@@ -67,7 +67,7 @@ After that:
 
 We started writing code before we had a team with code review. We have a lot of older code that does not conform to our new standards. This means:
 
-1. If you use any exisiting code as a starting point note that the existing code might not have gone through this code review process. If this a new body of work, you are still responsible for updating it according to these guidelines.
+1. If you use any existing code as a starting point note that the existing code might not have gone through this code review process. If this a new body of work, you are still responsible for updating it according to these guidelines.
 2. The point of this is **not** to update our entire code base according to these standards. The point is to raise the bar for new work, or for existing high impact high friction work. 
 
 ### Type of review request
@@ -174,7 +174,7 @@ df_raw <- tribble(
 )
 ```
 In this first data step, computational statements are employed on both the left hand side
-of the evaluation and the right and side of the assigment.
+of the evaluation and the right and side of the assignment.
 
 ```
 df_1 <- df_raw |> 
