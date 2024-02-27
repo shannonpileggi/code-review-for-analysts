@@ -107,7 +107,7 @@ that allow one to fully check new variable derivations.
 * If the data sets have the same unit of observation (i.e., 1 row per subject) consider if they should be merged together
 or if they should be separate.
 * Operations/mutations on data sets should be done in a single data step when possible (i.e., don't create age
-category in one data step and then bmi category in a separate data step).
+category in one data step and then bmi category in separate data sets).
 * Data steps should generally be organized with all joins followed by all filters followed by mutating statements.
 ```
 df_subjects <- df_1 |>
