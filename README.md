@@ -151,7 +151,10 @@ character values are retained.
 
 ### Binary variables
 
-When creating binary variables, values should be coded as the logical `TRUE`/`FALSE` (not `yes`, `no`, etc.).
+When creating binary variables, there is a preference to code value as the logical `TRUE`/`FALSE`. If there
+is a strong rationale behind character coding (i.e., `yes`, `no`) the go forth with that; however, be
+consistent in coded values (i.e., `Yes` vs `yes`).
+
 It is also very important to consider if `NA` is a valid coded option. In general, the difference between
 coding an observation as `NA` vs `FALSE` is whether or not that observation should count in the denominator 
 when tabulating the variable (values of `NA` by default generally do not contribute towards denominator, values 
