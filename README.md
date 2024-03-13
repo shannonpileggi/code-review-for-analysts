@@ -90,6 +90,7 @@ Comments are also expected throughout the script.
 * Joins should have comments explaining type of join used.
 * New variables should have comments about what it is and notes about nuances in derivation.
 * Grouping operations should have comments about what level the grouping is at and why.
+* If during the review process an inquiry is raised and resolved via a comment, please document that as a comment in the script (and not just leave in the review conversation on GitHub).
 * Probably more types of comments expected.
 
 
