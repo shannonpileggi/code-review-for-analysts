@@ -44,7 +44,7 @@ The aims of this document are to:
 
 Code review is **not required** if:
 * you are an experienced employee and you are re-executing existing work with minimal changes (i.e., updated data).
-* you are an experienced employee and you are creating new work, but it has been agreed that there will be an alternative review process such as the clinical operations or data management team QCing the results.
+* you are an experienced employee and you are creating new work, but it has been agreed that there will be an alternative review process such as the clinical operations or data management team reviewing the results.
 
 Code review is **required** if you are a newer employee (<4 months) and for all other circumstances.
 
@@ -136,7 +136,7 @@ df_subjects <- df_1 |>
 screen fail subjects. More often than not, you would be better served to create new derived
 variables indicating subjects of interest as we are often interested in not only observations that
 meet a certain criteria but also the full context of how many subjects did not meet that criteria.
-* When grouping or reducing data, you will likely need to retain one data step to QC derivations and
+* When grouping or reducing data, you will likely need to retain one data step to inspect derivations and
 a separate data step for reducing / refining the observations of interest.
 * Always confirm that there is 1 row per expected unit of observation (i.e., 1 row per subject, or 1 row per scan per date).
   This can be done via `janitor::get_dupes()`.
@@ -144,8 +144,9 @@ a separate data step for reducing / refining the observations of interest.
 ### New variable creation  
 
 In general, it is best practice to create new variables with new names and not overwrite existing variables. 
-This is because in order to QC the new variable creation, you need to cross check the previous values against
-the new values. When you overwrite variables, you lose the ability to QC them.
+This is because in order to inspect the new variable creation, you need to cross check the previous values against
+the new values. When you overwrite variables, you lose the ability to compare new values against the old values to
+verify the derivation.
 
 The only exception I make for this is when converting a character variable to a factor when all original
 character values are retained.
@@ -163,8 +164,8 @@ of `FALSE` do).
 
 ### Case-when logic
 
-Do not shoehorn complex logic into a `case_when` statement - this makes it very hard to QC results.
-Instead, derive simpler variables that can be easily QC'd and then built upon for more complex logic.
+Do not shoehorn complex logic into a `case_when` statement - this makes it very hard to inspect results.
+Instead, derive simpler variables that can be easily inspected and then built upon for more complex logic.
 
 For example, consider date variables imported from excel that need to be converted to proper date formats
 with dates marked as year 1900 set to missing.
@@ -214,7 +215,7 @@ All new variables should have labels describing their meaning.
 
 ### Checking derived variables
 
-In general, the best way to QC derived variables is to tabulate the newly derived variable against the original variable, as in
+In general, the best way to inspect derived variables is to tabulate the newly derived variable against the original variable, as in
 
 `data |> count(variable_new, variable_old)`.
 
@@ -230,7 +231,8 @@ data |> count(variable_new, variable_old) |> View()
 data |> count(variable_new, variable_old) |> print(n = Inf)
 ```
 
-**Each newly created variable must be QC'd.**
+**Each newly created variable must be tabulated against original variables used in the derivation to
+confirm the new variable is coded as intended.**
 
 #### NAs
 
@@ -240,7 +242,7 @@ newly derived variables.
 
 #### Example
 
-In `df_1` above, results can be QCd but it would be hard to diagnose where code went wrong if results were unexpected.
+In `df_1` above, results can be inspected but it would be hard to diagnose where code went wrong if results were unexpected.
 
 ```
 df_1 |> count(dt_excel, dt_clean)
@@ -248,7 +250,7 @@ df_1 |> count(dt_excel, dt_clean)
 
 In this case, the 1900 condition failed to result in a missing value.
 
-In `df_2`, each individual variable derived can be QCd to pinpoint where logic fails.
+In `df_2`, each individual variable derived can be inspected to pinpoint where logic fails.
 
 ```
 df_2 |> count(dt_proper, dt_excel)
