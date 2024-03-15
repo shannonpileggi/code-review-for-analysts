@@ -272,6 +272,15 @@ for specific deliverables or data changes is recommended to allow you to quickly
 Code should execute without warnings. If you have encountered a warning you are not sure how to resolve,
 ask about it in a pre- code review discussion.
 
+## TODO
+
+Explore what of this can be detected automatically via `lintr`:
+
+* Commented code linter <https://lintr.r-lib.org/reference/commented_code_linter.html>.
+* Join/fiter/mutate patterns in data steps??
+
+Explore husky for linting <https://typicode.github.io/husky/>.
+
 
 
 
