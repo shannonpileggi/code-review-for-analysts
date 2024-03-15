@@ -277,7 +277,7 @@ ask about it in a pre- code review discussion.
 Explore what of this can be detected automatically via `lintr`:
 
 * Commented code linter <https://lintr.r-lib.org/reference/commented_code_linter.html>.
-* Join/fiter/mutate patterns in data steps??
+* Join/filter/mutate patterns in data steps??
 
 Explore husky for linting <https://typicode.github.io/husky/>.
 
