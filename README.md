@@ -9,7 +9,7 @@ These are my rough thoughts. I expect this document to change over time. I also 
 There is a lot written about the benefits of code review. There is also a lot written about code review processes for software engineers or people who work with code in production and can take advantage of CI/CD pipelines or testing environments. I think there is less written about code review for analysts. If you know of any existing resources along these lines, please share.
 
 Even though this repository is named `Code Review For Analysts`, your job title does not need to be `analyst` to benefit from this document; this document is for teams who write code for the purposes of data analysis and employ code review. This document does not apply to 
-code review of R packages, as that follows as a separate process. Other job titles that may find this document useful include data scientist, ...
+code review of R packages, as that follows as a separate process. Other job titles that may find this document useful include data scientist, (bio)statistician, and analytics engineer.
 
 ## Related Resources
 
@@ -34,9 +34,10 @@ The aims of this document are to:
 
 ## Before any code is written
 
-* Make sure you (the person submitting the code) have a clear understanding of the request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
+* Make sure you (the person submitting the code) have a clear understanding of the end user's request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
 * Check the associated project repository for existing code you can build upon.
 * Check the associated project repository for any open pull requests. If there are open PRs, assess if they contain either related work or work that could cause a downstream merge conflict. If so, discuss a plan on how to handle.
+* Similarly, check the project repository for open issues that may relate to the request and/or be resolved through completion of the request.
 
 ## Getting started
 
@@ -52,13 +53,13 @@ Code review is **required** if you are a newer employee (<4 months) and for all 
 
 
 Depending on the scope of the code in progress, it may be beneficial to **have some initial conversation and feedback prior to officially requesting a review**. This is especially important for newer employees or newer bodies of work, 
-and can be very beneficial to ensure that data context and nuances are appropriately accounted for. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process. 
+and can be very beneficial to ensure that data context, areas of high code-complexity or risk, and request nuances are appropriately accounted for. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process. 
 
 After that:
 
 1. Confirm that your code follows the guidelines below.
-2. Restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
-3. Update the `renv.lock`, if applicable.
+2. Restart R and run `renv::status()`. Correct any problems (e.g. updates to renv.lock or package version changes via `renv::restore()`).
+3. Restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
 4. In the PR, inform the reviewer when the deliverable is due or a suggested timeline for review that it can be prioritized accordingly.
 
 ## Code review guidelines
@@ -98,6 +99,13 @@ Comments are also expected throughout the script.
 
 We follow the [tidyverse style guide](https://style.tidyverse.org/index.html).
 
+## Naming
+
+Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
+When we do have control over variable names, the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework applies. 
+The general heirarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`, and `CAT_RACE`.
+Similarly, objects in R such as data frames should be preceded by the object type, e.g. `df_subjects_enrolled` and `lst_medidata_data_raw`.
+
 ### Data sets and steps
 
 Ideally we would like to create the fewest possible relevant data sets and also retain data sets
@@ -109,6 +117,8 @@ that allow one to fully check new variable derivations.
 or if they should be separate.
 * Operations/mutations on data sets should be done in a single data step when possible (i.e., don't create age
 category in one data step and then bmi category in separate data sets).
+* Left joins are generally preferred for readability, but make sure rows from the right-hand data frames that you wish to keep aren't silently dropped.
+The [tidylog](https://github.com/elbersb/tidylog) package can be helpful to provide verbose feedback about the implications of various joins.
 * Data steps should generally be organized with all joins followed by all filters followed by mutating statements.
 ```
 df_subjects <- df_1 |>
@@ -136,6 +146,7 @@ df_subjects <- df_1 |>
 screen fail subjects. More often than not, you would be better served to create new derived
 variables indicating subjects of interest as we are often interested in not only observations that
 meet a certain criteria but also the full context of how many subjects did not meet that criteria.
+Flags are encouraged for this purpose, and this practice aligns with SDTM standards, e.g. `ENRLFL`, `SAFFL`, and `ITTFL`.
 * When grouping or reducing data, you will likely need to retain one data step to inspect derivations and
 a separate data step for reducing / refining the observations of interest.
 * Always confirm that there is 1 row per expected unit of observation (i.e., 1 row per subject, or 1 row per scan per date).
@@ -150,6 +161,8 @@ verify the derivation.
 
 The only exception I make for this is when converting a character variable to a factor when all original
 character values are retained.
+
+This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary.
 
 ### Binary variables
 
@@ -221,6 +234,8 @@ In general, the best way to inspect derived variables is to tabulate the newly d
 
 Often, these span more than the default print method. To see all results,
 you can use `View()` or `print(n = Inf)`.
+
+If you want to set up a way to interactively view data frames mid-pipe with a keystroke, [here](https://twitter.com/travisgerke/status/1503385647842799618) is a way to do it with the `breakerofchains` and `shrtcts` packages.
 
 ```
 # does not work well in Rmarkdown/quarto, can be disruptive when submitting entire scripts
