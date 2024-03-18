@@ -293,7 +293,24 @@ for specific deliverables or data changes is recommended to allow you to quickly
 ### Warnings
 
 Code should execute without warnings. If you have encountered a warning you are not sure how to resolve,
-ask about it in a pre- code review discussion.
+ask about it in a pre-code review discussion. In some cases, warnings may occur due to nuances in the data or changes in the packages that are used within the workflow. If warnings of this nature are not altering the workflow and output being reviewed, you should provide comments summarizing why the warnings are expected/are occurring.
+
+### Deprecated Functions
+
+There may be cases where legacy code uses functions that are currently deprecated or superseded. In most cases, the use of deprecated functions will return a warning:
+
+```
+df_3 <-
+data_frame(
+           id = 1:3,
+           offstudy = c(TRUE,FALSE,FALSE)
+           )
+
+#> Warning: `data_frame()` was deprecated in tibble 1.1.0.
+#> ℹ Please use `tibble()` instead.
+```
+
+In cases where warnings or errors are produced from deprecated or superseded functions, you should update the code accordingly. If updating the function introduces significant change into the existing workflow, this should be documented on a high level in the top of the script and within the workflow where the changes occurred.
 
 ## TODO
 
