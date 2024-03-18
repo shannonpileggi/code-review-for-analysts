@@ -99,13 +99,13 @@ Comments are also expected throughout the script.
 
 We follow the [tidyverse style guide](https://style.tidyverse.org/index.html).
 
-## Naming
+### Naming
 
-### Object names
+#### Object names
 
 Objects in R such as data frames should be preceded by the object type, e.g. `lst_medidata_data_raw`, `df_main` and `vec_subjects`.
 
-### Variable names
+#### Variable names
 
 Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
 
