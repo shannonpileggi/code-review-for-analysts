@@ -68,7 +68,7 @@ After that:
 
 We started writing code before we had a team with code review. We have a lot of older code that does not conform to our new standards. This means:
 
-1. If you use any exisiting code as a starting point note that the existing code might not have gone through this code review process. If this a new body of work, you are still responsible for updating it according to these guidelines.
+1. If you use any existing code as a starting point note that the existing code might not have gone through this code review process. If this a new body of work, you are still responsible for updating it according to these guidelines.
 2. The point of this is **not** to update our entire code base according to these standards. The point is to raise the bar for new work, or for existing high impact high friction work. 
 
 ### Type of review request
@@ -107,10 +107,10 @@ Objects in R such as data frames should be preceded by the object type, e.g. `ls
 
 #### Variable names
 
-Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
+Sometimes variable names must be defined according to a pre-specified data model (e.g. CDISC/SDTM/ADaM). 
 
 When we do have control over naming conventions, employ the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework concept. 
-The general heirarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
+The general hierarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
 
 Binary variables (i.e., coded as `TRUE`, `FALSE`) should have the name and value in alignment. For example, a variable such as
 `flag_psa_invalid` should have a value of `TRUE` when the record is invalid; alternative `confirm_psa_valid` would
@@ -169,10 +169,10 @@ This is because in order to inspect the new variable creation, you need to cross
 the new values. When you overwrite variables, you lose the ability to compare new values against the old values to
 verify the derivation.
 
-The only exception I make for this is when converting a character variable to a factor when all original
+The only exception that can be made for this is when converting a character variable to a factor when all original
 character values are retained.
 
-This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary.
+This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary. When creating or renaming intermediate objects, it can be helpful to keep naming conventions consistent, descriptive, and related to the original object. (i.e, `df_main` -> `df_main_long` -> `df_main_final` For a dataframe that was pivoted to long format in an intermediate step before prodcuing the final object.)
 
 ### Binary variables
 
@@ -187,7 +187,7 @@ of `FALSE` do).
 
 ### Case-when logic
 
-Do not shoehorn complex logic into a `case_when` statement - this makes it very hard to inspect results.
+Avoid shoehorning complex logic into a `case_when` statement as this makes it very hard to inspect results.
 Instead, derive simpler variables that can be easily inspected and then built upon for more complex logic.
 
 For example, consider date variables imported from excel that need to be converted to proper date formats
@@ -202,7 +202,7 @@ df_raw <- tribble(
 )
 ```
 In this first data step, computational statements are employed on both the left hand side
-of the evaluation and the right and side of the assigment.
+of the evaluation and the right and side of the assignment.
 
 ```
 df_1 <- df_raw |> 
@@ -218,8 +218,8 @@ If results are unexpected here, it is hard to determine if it is because
 2. `year(dt_excel) <= 1900` failed, or
 3. `janitor::convert_to_date(dt_excel)` failed
 
-Instead of embedding computational assignments inside of `case_when` statement, create simpler
-variables that build up to this logic.
+Instead of embedding computational assignments inside of a `case_when` statement, create simpler
+variables that build up to this logic in a piece wise way.
 
 ```
 df_2 <- df_raw |> 
@@ -234,7 +234,7 @@ df_2 <- df_raw |>
   )
 ```
 
-All new variables should have labels describing their meaning.
+All new variables should have labels describing their meaning. In addition to creating meaningful [variable names], the [`labelled` package](https://larmarange.github.io/labelled/) can assist with the creation and modification of appropriate metadata labels.
 
 ### Checking derived variables
 
@@ -257,11 +257,31 @@ data |> count(variable_new, variable_old) |> print(n = Inf)
 **Each newly created variable must be tabulated against original variables used in the derivation to
 confirm the new variable is coded as intended.**
 
+While inserting code like this that will prompt the reviewer to examine key aspects of the workflow suffices, as stated, it can be disruptive when submitting/sourcing entire scripts or executing Rmarkdown/Quarto files. One alternative to this may be to create small test chunks that will allow for the script to execute and only stop or provide warnings when an error, or unexpected condition, is met:
+
+```
+# Create a logic/boolean object that checks the derivation
+string_id_check <- !is.character(df_4$subject_id)
+
+# Create a conditional statement based on the logic check
+if(string_id_check){
+
+# The data frame and relevant variables that need to be reviewed will open in the IDE...
+view(df_4 |> count(subject_id, flag_string_id))
+
+# And an error message will display in the console alerting the reviewer
+stop("Subject ID in df_4 is NOT a string. Please Review!")
+}
+
+```
+
+Creating tests can be as simple or complex as you desire, but care should be taken to assess the overall impact of not only the work/output, but the tests as well. Creating tests can be beneficial with complex or legacy code where the workflow is well-defined and the effort is deemed appropriate. However, with smaller operations, work that requires an expedited review, or work with low-impact (like one-off data requests), tests may not be appropriate or required.
+
 #### NAs
 
 Missing values are always of special interest. Verify the presence, if any, of missing values
 in original variables and confirm that those observations are coded correctly in 
-newly derived variables.
+newly derived variables. If you haven't done so, also confirm if missing values hold a special or nuanced meaning within the context of the data.
 
 #### Example
 
@@ -293,7 +313,24 @@ for specific deliverables or data changes is recommended to allow you to quickly
 ### Warnings
 
 Code should execute without warnings. If you have encountered a warning you are not sure how to resolve,
-ask about it in a pre- code review discussion.
+ask about it in a pre-code review discussion. In some cases, warnings may occur due to nuances in the data or changes in the packages that are used within the workflow. If warnings of this nature are not altering the workflow and output being reviewed, you should provide comments summarizing why the warnings are expected/are occurring.
+
+### Deprecated Functions
+
+There may be cases where legacy code uses functions that are currently deprecated or superseded. In most cases, the use of deprecated functions will return a warning:
+
+```
+df_3 <-
+data_frame(
+           id = 1:3,
+           offstudy = c(TRUE,FALSE,FALSE)
+           )
+
+#> Warning: `data_frame()` was deprecated in tibble 1.1.0.
+#> ℹ Please use `tibble()` instead.
+```
+
+In cases where warnings or errors are produced from deprecated or superseded functions, you should update the code accordingly. If updating the function introduces significant change into the existing workflow, this should be documented on a high level in the top of the script and within the workflow where the changes occurred.
 
 ## TODO
 
