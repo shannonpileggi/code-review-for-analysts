@@ -107,7 +107,7 @@ Objects in R such as data frames should be preceded by the object type, e.g. `ls
 
 #### Variable names
 
-Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
+Sometimes variable names must be defined according to a pre-specified data model (e.g. CDISC/SDTM/ADaM). 
 
 When we do have control over naming conventions, employ the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework concept. 
 The general hierarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
@@ -187,7 +187,7 @@ of `FALSE` do).
 
 ### Case-when logic
 
-Do not shoehorn complex logic into a `case_when` statement - this makes it very hard to inspect results.
+Avoid shoehorning complex logic into a `case_when` statement as this makes it very hard to inspect results.
 Instead, derive simpler variables that can be easily inspected and then built upon for more complex logic.
 
 For example, consider date variables imported from excel that need to be converted to proper date formats
@@ -218,8 +218,8 @@ If results are unexpected here, it is hard to determine if it is because
 2. `year(dt_excel) <= 1900` failed, or
 3. `janitor::convert_to_date(dt_excel)` failed
 
-Instead of embedding computational assignments inside of `case_when` statement, create simpler
-variables that build up to this logic.
+Instead of embedding computational assignments inside of a `case_when` statement, create simpler
+variables that build up to this logic in a piece wise way.
 
 ```
 df_2 <- df_raw |> 
@@ -234,7 +234,7 @@ df_2 <- df_raw |>
   )
 ```
 
-All new variables should have labels describing their meaning.
+All new variables should have labels describing their meaning. In addition to creating meaningful [variable names], the [`labelled` package](https://larmarange.github.io/labelled/) can assist with the creation and modification of appropriate metadata labels.
 
 ### Checking derived variables
 
@@ -256,6 +256,25 @@ data |> count(variable_new, variable_old) |> print(n = Inf)
 
 **Each newly created variable must be tabulated against original variables used in the derivation to
 confirm the new variable is coded as intended.**
+
+While inserting code like this that will prompt the reviewer to examine key aspects of the workflow suffices, as stated, it can be disruptive when submitting/sourcing entire scripts or executing Rmarkdown/Quarto files. One alternative to this may be to create small test chunks that will allow for the script to execute and only stop or provide warnings when an error, or unexpected condition, is met:
+
+```
+# Create a logic/boolean object that checks the derivation
+string_id_check <- !is.character(df_4$subject_id)
+
+# Create a conditional statement based on the logic check
+if(string_id_check){
+
+# The data frame and relevant variables that need to be reviewed will open in the IDE...
+view(df_4 |> count(subject_id, flag_string_id))
+
+# And an error message will display in the console alerting the reviewer
+stop("Subject ID in df_4 is NOT a string. Please Review!")
+}
+
+```
+Creating tests can be as simple or complex as you desire, but care should be taken to assess the overall impact of not only the work/output, but the tests as well. Creating tests can be beneficial with complex or legacy code where the workflow is well-defined and the effort is deemed appropriate. However, with smaller operations, work that requires an expedited review, or work with low-impact (like one-off data requests), tests may not be appropriate or required.
 
 #### NAs
 
