@@ -169,10 +169,10 @@ This is because in order to inspect the new variable creation, you need to cross
 the new values. When you overwrite variables, you lose the ability to compare new values against the old values to
 verify the derivation.
 
-The only exception I make for this is when converting a character variable to a factor when all original
+The only exception that can be made for this is when converting a character variable to a factor when all original
 character values are retained.
 
-This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary.
+This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary. When creating or renaming intermediate objects, it can be helpful to keep naming conventions consistent, descriptive, and related to the original object. (i.e, `df_main` -> `df_main_long` -> `df_main_final` For a dataframe that was pivoted to long format in an intermediate step before prodcuing the final object.)
 
 ### Binary variables
 
@@ -274,13 +274,14 @@ stop("Subject ID in df_4 is NOT a string. Please Review!")
 }
 
 ```
+
 Creating tests can be as simple or complex as you desire, but care should be taken to assess the overall impact of not only the work/output, but the tests as well. Creating tests can be beneficial with complex or legacy code where the workflow is well-defined and the effort is deemed appropriate. However, with smaller operations, work that requires an expedited review, or work with low-impact (like one-off data requests), tests may not be appropriate or required.
 
 #### NAs
 
 Missing values are always of special interest. Verify the presence, if any, of missing values
 in original variables and confirm that those observations are coded correctly in 
-newly derived variables.
+newly derived variables. If you haven't done so, also confirm if missing values hold a special or nuanced meaning within the context of the data.
 
 #### Example
 
