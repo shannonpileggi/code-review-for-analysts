@@ -101,10 +101,20 @@ We follow the [tidyverse style guide](https://style.tidyverse.org/index.html).
 
 ## Naming
 
+### Object names
+
+Objects in R such as data frames should be preceded by the object type, e.g. `lst_medidata_data_raw`, `df_main` and `vec_subjects`.
+
+### Variable names
+
 Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
-When we do have control over variable names, the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework applies. 
-The general heirarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`, and `CAT_RACE`.
-Similarly, objects in R such as data frames should be preceded by the object type, e.g. `df_subjects_enrolled` and `lst_medidata_data_raw`.
+
+When we do have control over naming conventions, employ the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework concept. 
+The general heirarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
+
+Binary variables (i.e., coded as `TRUE`, `FALSE`) should have the name and value in alignment. For example, a variable such as
+`flag_psa_invalid` should have a value of `TRUE` when the record is invalid; alternative `confirm_psa_valid` would
+have a value of `TRUE` when the record is valid.
 
 ### Data sets and steps
 
@@ -234,8 +244,6 @@ In general, the best way to inspect derived variables is to tabulate the newly d
 
 Often, these span more than the default print method. To see all results,
 you can use `View()` or `print(n = Inf)`.
-
-If you want to set up a way to interactively view data frames mid-pipe with a keystroke, [here](https://twitter.com/travisgerke/status/1503385647842799618) is a way to do it with the `breakerofchains` and `shrtcts` packages.
 
 ```
 # does not work well in Rmarkdown/quarto, can be disruptive when submitting entire scripts
