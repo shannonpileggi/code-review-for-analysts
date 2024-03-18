@@ -110,7 +110,7 @@ Objects in R such as data frames should be preceded by the object type, e.g. `ls
 Sometimes variable names must be defined according to a prespecified data model (e.g. CDISC/SDTM/ADaM). 
 
 When we do have control over naming conventions, employ the [Column Names as Contracts](https://www.emilyriederer.com/post/column-name-contracts/) framework concept. 
-The general heirarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
+The general hierarchy is `type_contents_detail` (where `detail` is optional), for example, `ID_PATIENT`, `DT_PSA_BASELINE`.
 
 Binary variables (i.e., coded as `TRUE`, `FALSE`) should have the name and value in alignment. For example, a variable such as
 `flag_psa_invalid` should have a value of `TRUE` when the record is invalid; alternative `confirm_psa_valid` would
