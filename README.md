@@ -34,6 +34,12 @@ The aims of this document are to:
 
 ## Before any code is written
 
+<!---
+To ensure people read this section, maybe begin with a bold phrase that is followed by the sentences describing the point in more details. For example, it could look something like this:
+
+* **Clear Understanding of Request** Make sure you (the person submitting the code) have a clear understanding of the end user's request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
+-->
+
 * Make sure you (the person submitting the code) have a clear understanding of the end user's request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
 * Check the associated project repository for existing code you can build upon.
 * Check the associated project repository for any open pull requests. If there are open PRs, assess if they contain either related work or work that could cause a downstream merge conflict. If so, discuss a plan on how to handle.
@@ -44,14 +50,14 @@ The aims of this document are to:
 ### Is a review required? 
 
 Code review is **not required** if:
-* you are an experienced employee and you are re-executing existing work with minimal changes (i.e., updated data).
-* you are an experienced employee and you are creating new work, but it has been agreed that there will be an alternative review process such as the clinical operations or data management team reviewing the results.
+* You are an experienced employee and you are re-executing existing work with minimal changes (i.e., updated data).
+* You are an experienced employee and you are creating new work, but it has been agreed that there will be an alternative review process such as the clinical operations or data management team reviewing the results.
 
 Code review is **required** if you are a newer employee (<4 months) and for all other circumstances.
 
 ### Am I ready to request a review?
 
-
+<!--- I am a little nervous about the number of times we're referencing new employees, since this is really for everyone. I would assume someone who has only worked with you for 3 months would seek guidence before getting started, but what we really need is for people to check in when they are about to undertake something that could be complex. With that in mind, I would remove refs below to being new, and focus on the tasks at hand so no experienced person (>4 months) dismisses this as not applying to them. -->
 Depending on the scope of the code in progress, it may be beneficial to **have some initial conversation and feedback prior to officially requesting a review**. This is especially important for newer employees or newer bodies of work, 
 and can be very beneficial to ensure that data context, areas of high code-complexity or risk, and request nuances are appropriately accounted for. Having this initial conversation can help ensure that both the code submitter and reviewer are on the same page and greatly streamline the review process. 
 
@@ -59,7 +65,7 @@ After that:
 
 1. Confirm that your code follows the guidelines below.
 2. Restart R and run `renv::status()`. Correct any problems (e.g. updates to renv.lock or package version changes via `renv::restore()`).
-3. Restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning and error free prior to submission.
+3. Restart R and re-execute your script in a fresh environment. Alternatively, re-render your quarto or rmarkdown document. The results should render warning- and error-free prior to submission.
 4. In the PR, inform the reviewer when the deliverable is due or a suggested timeline for review that it can be prioritized accordingly.
 
 ## Code review guidelines
@@ -73,8 +79,8 @@ We started writing code before we had a team with code review. We have a lot of 
 
 ### Type of review request
 
-* **Standard**
-* **Scoped:** This might be appropriate for pre-existing, legacy code that requires some updates. This body of code may not satisfy the guidelines below; however, the gains in re-factoring the code is low impact and therefore not worthwhile.
+* **Standard** <!--- Is there meant to be something here? -->
+* **Scoped:** This might be appropriate for pre-existing, legacy code that requires some updates. This body of code may not satisfy the guidelines below; however, the gains in re-factoring the code is low impact and therefore not worthwhile. <!--- Above we say the analyst ins responsibel for updating old code that is used to the this standard? (Point 1 above) -->
 * **Expedited:** This is a review for work that requires a quick turnaround. The reviewer may be lenient on review specifications below; however, note that shortcuts taken in specifications will likely lengthen the review process.
   
 ### Documentation
@@ -88,16 +94,18 @@ should be aligned with the updated scope.
 Comments are also expected throughout the script.
 * New data sets should have a brief comment about expected form and content
 (i.e., 1 row per subject containing demographic information).
-* Joins should have comments explaining type of join used.
+* Joins should have comments explaining type of join used, and all {dplyr} joins must use the `relationship` argument to specify the expected merge type (e.g. one-to-one, many-to-one, etc.).
 * New variables should have comments about what it is and notes about nuances in derivation.
 * Grouping operations should have comments about what level the grouping is at and why.
 * If during the review process an inquiry is raised and resolved via a comment, please document that as a comment in the script (and not just leave in the review conversation on GitHub).
-* Probably more types of comments expected.
+* Probably more types of comments expected. <!--- Not sure what this means? -->
 
 
 ### Code style
 
 We follow the [tidyverse style guide](https://style.tidyverse.org/index.html).
+The `styler::style_file()` function can be used to update a script's code to follow the style guideline.
+When there are lines or chunks of code that you do not want styled, use the tags `# styler: off` and `# styler: on`.
 
 ### Naming
 
@@ -169,7 +177,7 @@ This is because in order to inspect the new variable creation, you need to cross
 the new values. When you overwrite variables, you lose the ability to compare new values against the old values to
 verify the derivation.
 
-The only exception I make for this is when converting a character variable to a factor when all original
+The only exception we make for this is when converting a character variable to a factor when all original
 character values are retained.
 
 This rule applies to objects / data frames in memory as well: best not to overwrite `df_main` with a new `df_main`, rather, rename or create intermediate data frames if necessary.
@@ -178,7 +186,7 @@ This rule applies to objects / data frames in memory as well: best not to overwr
 
 When creating binary variables, there is a preference to code value as the logical `TRUE`/`FALSE`. If there
 is a strong rationale behind character coding (i.e., `yes`, `no`) the go forth with that; however, be
-consistent in coded values (i.e., `Yes` vs `yes`).
+consistent in coded values (i.e., `Yes` vs `yes`). <!--- I would just tell them here what you want it to be. lower case? title case? -->
 
 It is also very important to consider if `NA` is a valid coded option. In general, the difference between
 coding an observation as `NA` vs `FALSE` is whether or not that observation should count in the denominator 
@@ -234,7 +242,7 @@ df_2 <- df_raw |>
   )
 ```
 
-All new variables should have labels describing their meaning.
+All new variables should have labels describing their meaning. <!--- Any guidence on how/where you want these defined? -->
 
 ### Checking derived variables
 
@@ -243,7 +251,7 @@ In general, the best way to inspect derived variables is to tabulate the newly d
 `data |> count(variable_new, variable_old)`.
 
 Often, these span more than the default print method. To see all results,
-you can use `View()` or `print(n = Inf)`.
+you can use `View()` or `print(n = Inf)`. <!--- Hmmm this is tricky...View() only works interactively and it they are making a data set that will be updated at any point (most of them will, I presume), they will never check it again. I think it's fine for now, but to have in the back of your mind what you want to happen/implment in the future. -->
 
 ```
 # does not work well in Rmarkdown/quarto, can be disruptive when submitting entire scripts
@@ -297,7 +305,7 @@ ask about it in a pre- code review discussion.
 
 ## TODO
 
-Explore what of this can be detected automatically via `lintr`:
+Explore what of this can be detected automatically via `lintr`: <!--- just fyi, i find lintr VERY heavy-handed and don't like it much... -->
 
 * Commented code linter <https://lintr.r-lib.org/reference/commented_code_linter.html>.
 * Join/filter/mutate patterns in data steps??
