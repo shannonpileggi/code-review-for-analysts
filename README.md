@@ -32,6 +32,10 @@ The aims of this document are to:
 2. Empower a team to learn how to review code.
 
 
+## Example code review template
+
+[.github/pull_request_template.md](.github/pull_request_template.md)
+
 ## Before any code is written
 
 * Make sure you (the person submitting the code) have a clear understanding of the end user's request. A reliable way to do this is to write the specifications as you understand them and send your written description to the requester to confirm you are on the same page.
